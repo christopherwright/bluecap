@@ -1,6 +1,11 @@
-require 'bluecap'
+require 'helper'
 
 describe 'Bluecap' do
-  it "can create an identifier for a user" do
+
+  before do
+    Bluecap.redis.flushall
+  end
+
+  it 'can create an identifier for a user' do
   end
 end
