@@ -1,4 +1,8 @@
+require 'eventmachine'
 require 'redis'
+require 'multi_json'
+
+require 'bluecap/receiver'
 
 module Bluecap
   extend self

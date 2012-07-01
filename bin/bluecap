@@ -2,3 +2,10 @@
 
 $:.unshift File.dirname(__FILE__) + '/../lib'
 require 'bluecap'
+
+receiver = Bluecap::Receiver::Daemon.new
+# TODO: Logging levels.
+# TODO: Option to daemonize.
+# TODO: Option to write to pidfile.
+puts 'starting receiver'
+receiver.run
