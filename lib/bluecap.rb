@@ -3,6 +3,8 @@ require 'redis'
 require 'multi_json'
 
 require 'bluecap/receiver'
+require 'bluecap/handlers/event'
+require 'bluecap/handlers/identifier'
 
 module Bluecap
   extend self
