@@ -1,5 +1,5 @@
 module Bluecap
-  module Receiver
+  module Server
 
     def self.handlers
       @handlers ||= Hash.new
@@ -9,12 +9,21 @@ module Bluecap
       @handlers = handlers
     end
 
+    def post_init
+      puts "Connection made to server"
+    end
+
+    def unbind
+      puts "Connection closed with server"
+    end
+
     def receive_data(data)
       begin
-        body = MultiJson.load(data)
+        body = MultiJson.load(data, symbolize_keys: true)
         key = body.first[0].to_sym if body.first
-        if Bluecap::Receiver.handlers.key?(key)
-          Bluecap::Receiver.handlers[key].handle(body)
+        if Bluecap::Server.handlers.key?(key)
+          response = Bluecap::Server.handlers[key].handle(body)
+          send_data(response) if response
         end
       rescue MultiJson::DecodeError => e
         warn e
@@ -28,7 +37,7 @@ module Bluecap
 
       def run
         EventMachine::run do
-          EventMachine::open_datagram_socket('0.0.0.0', 6088, Bluecap::Receiver)
+          EventMachine::start_server('0.0.0.0', 6088, Bluecap::Server)
         end
       end
 
