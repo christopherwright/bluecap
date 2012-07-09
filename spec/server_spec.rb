@@ -3,7 +3,6 @@ require 'helper'
 describe 'Server' do
 
   before do
-    Bluecap.redis.flushall
     @server = Object.new
     @server.extend(Bluecap::Server)
     Bluecap::Server.handlers = {}
