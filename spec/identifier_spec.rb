@@ -9,9 +9,8 @@ describe 'Identifier' do
   it 'should identify users with an incremental counter' do
     Bluecap.redis.get('user.ids').should eq nil 
     identifier = Bluecap::Identifier.new
-    identifier.handle({identifier: 'Andy'})
-    Bluecap.redis.get('user.ids').should eq '1'
-    identifier.handle({identifier: 'Evelyn'})
+    identifier.handle({identifier: 'Andy'}).should eq(1)
+    identifier.handle({identifier: 'Evelyn'}).should eq(2)
     Bluecap.redis.get('user.ids').should eq '2'
   end
 
@@ -19,9 +18,7 @@ describe 'Identifier' do
     Bluecap.redis.get('user.ids').should eq nil 
     identifier = Bluecap::Identifier.new
     identifier.handle({identifier: 'Andy'})
-    Bluecap.redis.get('user.ids').should eq '1'
-    identifier.handle({identifier: 'Andy'})
-    Bluecap.redis.get('user.ids').should eq '1'
+    identifier.handle({identifier: 'Andy'}).should eq(1)
   end
 
 end
