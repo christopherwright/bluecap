@@ -1,8 +1,8 @@
 module Bluecap
-  class Identifier
+  class Identify
 
     def handle(data)
-      name = data[:identifier]
+      name = data[:identify]
       id = Bluecap.redis.hget('user.map', name)
       return id.to_i if id
 

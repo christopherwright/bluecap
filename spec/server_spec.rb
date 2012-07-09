@@ -11,10 +11,10 @@ describe 'Server' do
   it 'should route to appropriate handler' do
     handler = double()
     handler.should_receive(:handle)
-      .with(hash_including(identifier: 'andy'))
+      .with(hash_including(identify: 'andy'))
       .once
-    Bluecap::Server.handlers = {identifier: handler}
-    @server.receive_data('{"identifier": "andy"}')
+    Bluecap::Server.handlers = {identify: handler}
+    @server.receive_data('{"identify": "andy"}')
   end
 
   it 'should not throw an exception when no handler is found' do
