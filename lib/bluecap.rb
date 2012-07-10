@@ -5,6 +5,7 @@ require 'multi_json'
 require 'bluecap/server'
 require 'bluecap/handlers/event'
 require 'bluecap/handlers/identify'
+require 'bluecap/handlers/report'
 
 module Bluecap
   extend self
