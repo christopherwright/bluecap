@@ -10,11 +10,12 @@ module Bluecap
       Time.at(timestamp).strftime('%Y%m%d')
     end
 
-    def key(name, timestamp=Time.now.to_i)
+    def key(name, timestamp)
       return "events:#{clean_name(name)}:#{date(timestamp)}"
     end
 
     def handle(data)
+      data[:event][:timestamp] ||= Time.now.to_i
       Bluecap::Redis.setbit(
         key(data[:event][:name], data[:event][:timestamp]),
         data[:event][:id],
