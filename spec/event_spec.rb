@@ -25,7 +25,7 @@ describe 'Event handler' do
   end
 
   it "should create event key using cleaned name and date" do
-    @event.key('  Sign Up', 1341845456).should eq ('events:sign.up:20120710')
+    @event.key('Sign Up', 1341845456).should eq ('events:sign.up:20120710')
   end
 
 end
