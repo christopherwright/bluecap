@@ -16,7 +16,7 @@ module Bluecap
 
     def handle(data)
       data[:event][:timestamp] ||= Time.now.to_i
-      Bluecap::Redis.setbit(
+      Bluecap.redis.setbit(
         key(data[:event][:name], data[:event][:timestamp]),
         data[:event][:id],
         1)
