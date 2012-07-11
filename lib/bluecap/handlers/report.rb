@@ -3,8 +3,18 @@ module Bluecap
     def handle(data)
       """
       data = {
-        between: ['Created Account', 'Logged In'],
-        date_range: ['2012-03-17', '2012-06-17'],
+        events: {
+          from: 'Created Account',
+          to: 'Logged In'
+        },
+        dates: {
+          from: '2012-03-17',
+          to: '2012-06-17'
+        },
+        attributes: {
+          country: 'Australia',
+          gender: 'Male',
+        },
         buckets: 'weekly',
         across: 'weekly'
       }
