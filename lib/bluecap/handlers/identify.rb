@@ -1,6 +1,21 @@
 module Bluecap
   class Identify
 
+    # Returns an id to track a user in Bluecap, creating an id if one does not
+    # already exist.
+    #
+    # data - A Hash containing data to uniquely identify the user from the
+    #        source system.
+    #
+    # Examples
+    #
+    #   handle({identify: 'Andy'})
+    #   # => 1
+    #
+    #   handle({identify: 'Evelyn'})
+    #   # => 2
+    #
+    # Returns the Integer id.
     def handle(data)
       name = data[:identify]
       id = Bluecap.redis.hget('user.map', name)

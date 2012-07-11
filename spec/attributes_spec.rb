@@ -8,7 +8,7 @@ describe 'Attributes handler' do
   end
 
   it 'should create attributes key' do
-    @attributes.key('gender', 'male').should eq('attributes:gender:male')
+    @attributes.key('gender', 'female').should eq('attributes:gender:female')
   end
 
   it 'should create attributes key using cleaned name and date' do
@@ -19,7 +19,7 @@ describe 'Attributes handler' do
     data = {
       attributes: {
         hash: {
-          gender: 'male',
+          gender: 'female',
           country: 'australia',
         },
         id: 5
@@ -27,7 +27,7 @@ describe 'Attributes handler' do
     }
 
     # Confirm data is empty before handling attributes.
-    Bluecap.redis.getbit('attributes:gender:male', data[:attributes][:id])
+    Bluecap.redis.getbit('attributes:gender:female', data[:attributes][:id])
       .should eq(0)
     Bluecap.redis.getbit('attributes:country:australia', data[:attributes][:id])
       .should eq(0)
@@ -35,13 +35,13 @@ describe 'Attributes handler' do
     @attributes.handle(data)
 
     # Check that bits have changed.
-    Bluecap.redis.getbit('attributes:gender:male', data[:attributes][:id])
+    Bluecap.redis.getbit('attributes:gender:female', data[:attributes][:id])
       .should eq(1)
     Bluecap.redis.getbit('attributes:country:australia', data[:attributes][:id])
       .should eq(1)
 
     # For good measure, confirm that other bits have been left untouched.
-    Bluecap.redis.getbit('attributes:gender:male', data[:attributes][:id] - 1)
+    Bluecap.redis.getbit('attributes:gender:female', data[:attributes][:id] - 1)
       .should eq(0)
   end
 
