@@ -4,6 +4,7 @@ require 'multi_json'
 
 require 'bluecap/keys'
 require 'bluecap/server'
+require 'bluecap/handlers/attributes'
 require 'bluecap/handlers/event'
 require 'bluecap/handlers/identify'
 require 'bluecap/handlers/report'
