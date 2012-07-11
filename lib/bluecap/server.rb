@@ -36,7 +36,8 @@ module Bluecap
 
     # Parses JSON data received from a client, using the root namespace key
     # to route the request to a handler. This is called directly by
-    # EventMachine.
+    # EventMachine. If the handler returns data, this is sent back to the
+    # client.
     #
     # data - The String containing JSON received from the client.
     #
