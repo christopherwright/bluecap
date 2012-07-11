@@ -17,17 +17,15 @@ describe 'Event handler' do
 
   it 'should track event for user by setting corresponding bit to 1' do
     data = {
-      event: {
-        id: 3,
-        name: 'Created Account',
-        timestamp: Time.now.to_i
-      }
+      id: 3,
+      name: 'Created Account',
+      timestamp: Time.now.to_i
     }
 
-    key = @event.key(data[:event][:name], data[:event][:timestamp])
-    Bluecap.redis.getbit(key, data[:event][:id]).should eq (0)
+    key = @event.key(data[:name], data[:timestamp])
+    Bluecap.redis.getbit(key, data[:id]).should eq (0)
     @event.handle(data)
-    Bluecap.redis.getbit(key, data[:event][:id]).should eq (1)
+    Bluecap.redis.getbit(key, data[:id]).should eq (1)
   end
 
 end

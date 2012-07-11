@@ -9,26 +9,25 @@ module Bluecap
     #
     # Examples
     #
-    #   handle({identify: 'Andy'})
+    #   handle('Andy')
     #   # => 1
     #
-    #   handle({identify: 'Evelyn'})
+    #   handle('Evelyn')
     #   # => 2
     #
     # Returns the Integer id.
     def handle(data)
-      name = data[:identify]
-      id = Bluecap.redis.hget('user.map', name)
+      id = Bluecap.redis.hget('user.map', data)
       return id.to_i if id
 
       id = Bluecap.redis.incr('user.ids')
-      if Bluecap.redis.hsetnx('user.map', name, id)
+      if Bluecap.redis.hsetnx('user.map', data, id)
         return id
       else
         # Race condition, another process has set the id for this user.
         # The unused id shouldn't cause inaccuracies in reporting since
         # the position will be 0 in all bitsets across the system.
-        return redis.hget('user.map', name).to_i
+        return redis.hget('user.map', data).to_i
       end
     end
 

@@ -30,21 +30,19 @@ module Bluecap
     #
     #   handle({
     #     attributes: {
-    #       hash: {
-    #         gender: 'Female',
-    #         country: 'Australia'
-    #       },
-    #       id: 3
-    #     }
+    #       gender: 'Female',
+    #       country: 'Australia'
+    #     },
+    #     id: 3
     #   })
     #
     # Returns nil.
     def handle(data)
       Bluecap.redis.multi do
-        data[:attributes][:hash].each do |k, v|
+        data[:attributes].each do |k, v|
           Bluecap.redis.setbit(
             key(k.to_s, v),
-            data[:attributes][:id],
+            data[:id],
             1
           )
         end

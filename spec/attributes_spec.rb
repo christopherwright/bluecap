@@ -18,30 +18,28 @@ describe 'Attributes handler' do
   it 'should track attributes for user by setting corresponding bits to 1' do
     data = {
       attributes: {
-        hash: {
-          gender: 'female',
-          country: 'australia',
-        },
-        id: 5
-      }
+        gender: 'female',
+        country: 'australia',
+      },
+      id: 5
     }
 
     # Confirm data is empty before handling attributes.
-    Bluecap.redis.getbit('attributes:gender:female', data[:attributes][:id])
+    Bluecap.redis.getbit('attributes:gender:female', data[:id])
       .should eq(0)
-    Bluecap.redis.getbit('attributes:country:australia', data[:attributes][:id])
+    Bluecap.redis.getbit('attributes:country:australia', data[:id])
       .should eq(0)
 
     @attributes.handle(data)
 
     # Check that bits have changed.
-    Bluecap.redis.getbit('attributes:gender:female', data[:attributes][:id])
+    Bluecap.redis.getbit('attributes:gender:female', data[:id])
       .should eq(1)
-    Bluecap.redis.getbit('attributes:country:australia', data[:attributes][:id])
+    Bluecap.redis.getbit('attributes:country:australia', data[:id])
       .should eq(1)
 
     # For good measure, confirm that other bits have been left untouched.
-    Bluecap.redis.getbit('attributes:gender:female', data[:attributes][:id] - 1)
+    Bluecap.redis.getbit('attributes:gender:female', data[:id] - 1)
       .should eq(0)
   end
 

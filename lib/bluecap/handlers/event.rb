@@ -40,19 +40,17 @@ module Bluecap
     # Examples
     #
     #    handle({
-    #      event: {
-    #        id: 3,
-    #        name: 'Created Account',
-    #        timestamp: 1341845456
-    #      }
+    #      id: 3,
+    #      name: 'Created Account',
+    #      timestamp: 1341845456
     #    })
     #
     # Returns nil.
     def handle(data)
-      data[:event][:timestamp] ||= Time.now.to_i
+      data[:timestamp] ||= Time.now.to_i
       Bluecap.redis.setbit(
-        key(data[:event][:name], data[:event][:timestamp]),
-        data[:event][:id],
+        key(data[:name], data[:timestamp]),
+        data[:id],
         1)
 
       nil

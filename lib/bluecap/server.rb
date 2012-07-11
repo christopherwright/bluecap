@@ -51,7 +51,7 @@ module Bluecap
         body = MultiJson.load(data, symbolize_keys: true)
         key = body.first[0].to_sym if body.first
         if Bluecap::Server.handlers.key?(key)
-          response = Bluecap::Server.handlers[key].handle(body)
+          response = Bluecap::Server.handlers[key].handle(body.first[1])
           send_data(response) if response
         end
       rescue MultiJson::DecodeError => e

@@ -11,7 +11,7 @@ describe 'Server' do
   it 'should route to appropriate handler' do
     handler = double()
     handler.should_receive(:handle)
-      .with(hash_including(identify: 'andy'))
+      .with('andy')
       .once
     Bluecap::Server.handlers = {identify: handler}
     @server.receive_data('{"identify": "andy"}')
