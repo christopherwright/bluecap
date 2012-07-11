@@ -2,6 +2,7 @@ require 'eventmachine'
 require 'redis'
 require 'multi_json'
 
+require 'bluecap/keys'
 require 'bluecap/server'
 require 'bluecap/handlers/event'
 require 'bluecap/handlers/identify'
