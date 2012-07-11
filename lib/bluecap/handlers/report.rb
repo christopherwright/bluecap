@@ -4,12 +4,13 @@ module Bluecap
     # a person has tracked two events (e.g.: created an account then logged
     # back in).
     #
-    # data - A Hash containing report options.
-    #        :events     -
-    #        :dates      -
-    #        :attributes -
-    #        :buckets    -
-    #        :across     -
+    # data - A Hash containing options to scope the report by.
+    #        :events     - The Hash events to report from and to.
+    #        :dates      - The Hash dates to report from and to.
+    #        :attributes - The Hash attributes of users (optional).
+    #        :buckets    - The String to group users by (e.g.: monthly).
+    #        :across     - The String frequency to check event tracking
+    #                      (e.g.: weekly).
     #
     # Examples
     #
