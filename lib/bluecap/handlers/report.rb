@@ -1,5 +1,6 @@
 module Bluecap
   class Report
+
     # Generates a cohort report for the client. Finds the time between when
     # a person has tracked two events (e.g.: created an account then logged
     # back in).
@@ -34,5 +35,6 @@ module Bluecap
     # Returns the String with report data in JSON format.
     def handle(data)
     end
+
   end
 end
