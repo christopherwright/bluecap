@@ -16,6 +16,8 @@ module Bluecap
         key(data[:event][:name], data[:event][:timestamp]),
         data[:event][:id],
         1)
+
+      nil
     end
   end
 end
