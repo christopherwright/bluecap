@@ -24,7 +24,7 @@ module Bluecap
   # Returns nothing.
   def redis=(server)
     host, port, database = server.split(':')
-    @redis = Redis.connect(host: host, port: port, database: database)
+    @redis = Redis.new(host: host, port: port, database: database)
   end
 
   # Returns the Redis client, creating a new client if one does not already
