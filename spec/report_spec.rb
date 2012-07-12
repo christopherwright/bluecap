@@ -15,19 +15,21 @@ describe 'Report handler' do
         to: 'Logged In'
       },
       dates: {
-        from: '2012-03-17',
-        to: '2012-06-17'
+        from: '20120601',
+        to: '20120604'
       },
       attributes: {
         country: 'Australia',
         gender: 'Male',
       },
-      buckets: 'weekly',
-      across: 'weekly'
+      buckets: 'daily',
+      across: 'daily'
     }
 
-    results = @report.handle(data)
-    results.should eql(nil)
+    json = @report.handle(data)
+    body = MultiJson.load(json, symbolize_keys: true)
+    dates = ['20120601', '20120602', '20120603', '20120604']
+    body.keys.should include(*dates.map { |d| d.to_sym })
   end
 
 end

@@ -16,7 +16,7 @@ module Bluecap
     #   # => "attributes:country:australia"
     #
     # Returns the String key.
-    def key(attribute, value)
+    def self.key(attribute, value)
       "attributes:#{Bluecap::Keys.clean(attribute)}:#{Bluecap::Keys.clean(value)}"
     end
 
@@ -41,7 +41,7 @@ module Bluecap
       Bluecap.redis.multi do
         data[:attributes].each do |k, v|
           Bluecap.redis.setbit(
-            key(k.to_s, v),
+            self.class.key(k.to_s, v),
             data[:id],
             1
           )

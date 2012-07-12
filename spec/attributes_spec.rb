@@ -8,11 +8,11 @@ describe 'Attributes handler' do
   end
 
   it 'should create attributes key' do
-    @attributes.key('gender', 'female').should eq('attributes:gender:female')
+    Bluecap::Attributes.key('gender', 'female').should eq('attributes:gender:female')
   end
 
   it 'should create attributes key using cleaned name and date' do
-    @attributes.key(' COUNTRY', 'Australia').should eq('attributes:country:australia')
+    Bluecap::Attributes.key(' COUNTRY', 'Australia').should eq('attributes:country:australia')
   end
 
   it 'should track attributes for user by setting corresponding bits to 1' do
