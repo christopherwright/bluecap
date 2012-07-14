@@ -8,30 +8,23 @@ describe 'Report handler' do
 
   subject do
     Bluecap::Report.new(
-      events: {
-        from: 'Created Account',
-        to: 'Logged In'
-      },
-      dates: {
-        from: '20120601',
-        to: '20120604'
-      },
+      initial_event: 'Created Account',
+      engagement_event: 'Logged In',
+      report_start_date: '20120401',
+      report_end_date: '20120414', 
       attributes: {
         country: 'Australia',
-        gender: 'Male',
+        gender: 'Female'
       },
-      buckets: 'daily',
-      across: 'daily'
+      buckets: 'weekly',
+      frequency: 'daily'
     )
 
   end
 
   it 'should generate report' do
-    # TODO: Split this into several tests once design takes shape.
     json = subject.handle
     body = MultiJson.load(json, symbolize_keys: true)
-    dates = ['20120601', '20120602', '20120603', '20120604']
-    #body.keys.should include(*dates.map { |d| d.to_sym })
   end
 
 end
