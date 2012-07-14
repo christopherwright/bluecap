@@ -1,18 +1,18 @@
-require 'helper'
+require 'bluecap/keys'
 
-describe 'Redis keys' do
+describe Bluecap::Keys do
 
   it 'should strip surrounding whitespace from string' do
-    Bluecap::Keys.clean('  paid  ').should eq('paid')
+    subject.clean('  paid  ').should eq('paid')
   end
 
   it 'should not allow capital letters in string' do
-    Bluecap::Keys.clean('SignUp').should eq('signup')
+    subject.clean('SignUp').should eq('signup')
   end
 
   it "should convert non-alphanumeric characters that aren't
   leading/trailing to periods" do
-    Bluecap::Keys.clean('  logged in  ').should eq('logged.in')
+    subject.clean('  logged in  ').should eq('logged.in')
   end
 
 end
