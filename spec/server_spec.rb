@@ -1,11 +1,10 @@
 require 'helper'
 
-describe 'Server' do
+describe Bluecap::Server do
 
-  before do
-    @server = Object.new
-    @server.extend(Bluecap::Server)
-    Bluecap::Server.handlers = {}
+  subject do
+    server = Object.new
+    server.extend(Bluecap::Server)
   end
 
   it 'should route to appropriate handler' do
@@ -14,7 +13,7 @@ describe 'Server' do
       .with('andy')
       .once
     Bluecap::Server.handlers = {identify: handler}
-    @server.receive_data('{"identify": "andy"}')
+    subject.receive_data('{"identify": "andy"}')
   end
 
 end
