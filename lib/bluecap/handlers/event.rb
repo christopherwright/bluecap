@@ -34,17 +34,11 @@ module Bluecap
       Time.at(@timestamp).strftime('%Y%m%d')
     end
 
-    # Returns a key used to store the events for a day.
-    #
-    # Examples
-    #
-    #    event = Bluecap::Event.new :id => 1, :name => 'Sign Up', :timestamp => 1341845456
-    #    event.key
-    #    # => "events:sign.up:20120710"
+    # Proxy for an event key.
     #
     # Returns the String key.
     def key
-      "events:#{Bluecap::Keys.clean(@name)}:#{date}"
+      Bluecap::Keys.event(@name, date)
     end
 
     # Store the user's event in a bitset of all the events matching that name

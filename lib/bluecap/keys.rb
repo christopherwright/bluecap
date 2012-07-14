@@ -20,5 +20,20 @@ module Bluecap
       str.strip.downcase.gsub(/[^a-z0-9]/, '.')
     end
 
+    # Returns a key used to store the events for a day.
+    #
+    # Examples
+    #
+    #    Bluecap::Keys.event 'Sign Up', '20120710'
+    #    # => "events:sign.up:20120710"
+    #
+    # Returns the String key.
+    def self.event(name, date)
+      "events:#{clean(name)}:#{date}"
+    end
+
+    def self.cohort(id, date)
+    end
+
   end
 end
