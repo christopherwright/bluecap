@@ -1,6 +1,6 @@
 require 'helper'
 
-describe 'Attributes handler' do
+describe Bluecap::Attributes do
 
   before do
     Bluecap.redis.flushall

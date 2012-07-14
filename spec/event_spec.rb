@@ -1,6 +1,6 @@
 require 'helper'
 
-describe 'Event handler' do
+describe Bluecap::Event do
 
   before do
     Bluecap.redis.flushall
