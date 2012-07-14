@@ -14,7 +14,8 @@ describe Bluecap::Report do
         country: 'Australia',
         gender: 'Female'
       },
-      year_month: '201207'
+      start_date: '20120401',
+      end_date: '20120430'
     )
 
   end

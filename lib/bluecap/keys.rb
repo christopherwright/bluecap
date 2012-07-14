@@ -32,7 +32,12 @@ module Bluecap
       "events:#{clean(name)}:#{date}"
     end
 
-    def self.cohort(id, date)
+    def self.cohort(report_id, cohort_id)
+      "reports:cohort:#{report_id}:#{cohort_id}"
+    end
+
+    def self.engagement(report_id, cohort_id, date)
+      "reports:e:#{report_id}:#{cohort_id}:#{date}"
     end
 
   end

@@ -4,6 +4,8 @@ require 'multi_json'
 
 require 'bluecap/keys'
 require 'bluecap/message'
+require 'bluecap/cohort'
+require 'bluecap/engagement'
 require 'bluecap/server'
 require 'bluecap/handlers/attributes'
 require 'bluecap/handlers/event'
