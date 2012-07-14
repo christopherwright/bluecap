@@ -9,16 +9,13 @@ module Bluecap
 
     # Assign handlers to respond to new data.
     #
-    # handlers - A Hash of handlers. When the server receives data, it checks
-    #            the root level key of the data - if the handlers Hash has
-    #            a matching key, the handler object in the value is used to
-    #            respond to the request.
+    # handlers - A Hash of lookup keys to handler classes.
     #
     # Examples
     #
     #   handlers = {
-    #     event: Bluecap::Event.new,
-    #     identify: Bluecap::Identify.new
+    #     event: Bluecap::Event,
+    #     identify: Bluecap::Identify
     #   }
     #
     # Returns nothing.
@@ -26,18 +23,15 @@ module Bluecap
       @handlers = handlers
     end
 
-    def post_init
-      puts "Connection made to server"
+    def process(message)
+      klass = Bluecap::Server.handlers.fetch(message.recipient, Bluecap::NullObject)
+      handler = klass.new(message.contents)
+      handler.handle
+      handler.response
     end
 
-    def unbind
-      puts "Connection closed with server"
-    end
-
-    # Parses JSON data received from a client, using the root namespace key
-    # to route the request to a handler. This is called directly by
-    # EventMachine. If the handler returns data, this is sent back to the
-    # client.
+    # Process a message received from a client, sending a response if
+    # necessary.
     #
     # data - The String containing JSON received from the client.
     #
@@ -47,18 +41,9 @@ module Bluecap
     #
     # Returns nothing.
     def receive_data(data)
-      begin
-        body = MultiJson.load(data, symbolize_keys: true)
-        key = body.first[0].to_sym if body.first
-        if Bluecap::Server.handlers.key?(key)
-          response = Bluecap::Server.handlers[key].handle(body.first[1])
-          send_data(response) if response
-        end
-      rescue MultiJson::DecodeError => e
-        warn e
-      end
-    rescue Exception => e
-      warn "#{Time.now}: Uncaught error #{e.message}"
+      message = Bluecap::Message.new(data)
+      response = process(message)
+      send_data(response) if response
     end
 
     class Daemon

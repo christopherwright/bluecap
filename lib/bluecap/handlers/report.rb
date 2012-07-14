@@ -4,13 +4,7 @@ require 'securerandom'
 module Bluecap
   class Report
 
-    def keys_for_attributes
-      @keys_for_attributes ||= @attributes.map{ |k, v| Bluecap::Attributes.key(k.to_s, v) }
-    end
-
-    # Generates a cohort report for the client. Finds the time between when
-    # a person has tracked two events (e.g.: created an account then logged
-    # back in).
+    # Initialize a Report handler.
     #
     # data - A Hash containing options to scope the report by.
     #        :events     - The Hash events to report from and to.
@@ -38,26 +32,43 @@ module Bluecap
     #     buckets: 'daily',
     #     across: 'daily'
     #   })
+    def initialize(data)
+      @events_from = data.fetch(:events).fetch(:from)
+      @events_to = data.fetch(:events).fetch(:to)
+      @dates_from = data.fetch(:dates).fetch(:from)
+      @dates_to = data.fetch(:dates).fetch(:to)
+      @attributes = data.fetch(:attributes, {})
+      @buckets = data.fetch(:buckets)
+      @across = data.fetch(:across)
+
+      @report = Hash.new
+      @report[:id] = SecureRandom.hex(8)
+    end
+
+    def keys_for_attributes
+      attributes = Bluecap::Attributes.new :id => 0, :attributes => @attributes
+      attributes.keys
+    end
+
+    # Generates a cohort report. Finds the time between when users have
+    # registered separate event types (e.g.: created an account then logged back
+    # in.)
     #
     # Returns the String with report data in JSON format.
-    def handle(data)
-      report = Hash.new
-      report_id = SecureRandom.hex(8)
-      @attributes = data[:attributes]
-      keys = keys_for_attributes
-      date_from = Date.parse(data[:dates][:from])
-      date_to = Date.parse(data[:dates][:to])
-      (date_from..date_to).each do |date|
-        date_str = date.strftime('%Y%m%d')
-        stats = Hash.new
-        total_key = "reports:#{report_id}:#{date_str}:total"
-        keys_for_first_event = Array.new
-        keys_for_first_event << Bluecap::Event.key(data[:events][:from], date_str)
-        keys_for_first_event.concat(keys_for_attributes)
-        Bluecap.redis.bitop('and', total_key, keys_for_first_event)
-        Bluecap.redis.expire(total_key, 3600) # TODO: Delete if possible.
-        stats[:total] = Bluecap.redis.get(total_key) || 0
-        report[date.strftime('%Y%m%d')] = stats
+    def handle
+      dates_from = Date.parse(@dates_from)
+      dates_to = Date.parse(@dates_to)
+      (dates_from..dates_to).each do |date|
+        #date_str = date.strftime('%Y%m%d')
+        #stats = Hash.new
+        #total_key = "reports:#{report_id}:#{date_str}:total"
+        #keys_for_first_event = Array.new
+        #keys_for_first_event << Bluecap::Event.key(data[:events][:from], date_str)
+        #keys_for_first_event.concat(keys_for_attributes)
+        #Bluecap.redis.bitop('and', total_key, keys_for_first_event)
+        #Bluecap.redis.expire(total_key, 3600) # TODO: Delete if possible.
+        #stats[:total] = Bluecap.redis.get(total_key) || 0
+        #report[date.strftime('%Y%m%d')] = stats
       end
 
       # {
@@ -71,7 +82,7 @@ module Bluecap
       #   }
       # }
 
-      MultiJson.dump(report)
+      MultiJson.dump(@report)
     end
 
   end

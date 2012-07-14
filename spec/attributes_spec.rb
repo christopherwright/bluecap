@@ -4,15 +4,24 @@ describe 'Attributes handler' do
 
   before do
     Bluecap.redis.flushall
-    @attributes = Bluecap::Attributes.new
+  end
+
+  subject do
+    Bluecap::Attributes.new :id => 3,
+      :attributes => {:country => 'Australia', :gender => 'Female'}
   end
 
   it 'should create attributes key' do
-    Bluecap::Attributes.key('gender', 'female').should eq('attributes:gender:female')
+    subject.key('gender', 'female').should == 'attributes:gender:female'
   end
 
   it 'should create attributes key using cleaned name and date' do
-    Bluecap::Attributes.key(' COUNTRY', 'Australia').should eq('attributes:country:australia')
+    subject.key(' COUNTRY', 'Australia').should == 'attributes:country:australia'
+  end
+
+  it 'should create keys for multiple attributes' do
+    subject.keys.should =~ ['attributes:country:australia',
+                            'attributes:gender:female']
   end
 
   it 'should track attributes for user by setting corresponding bits to 1' do
@@ -24,23 +33,11 @@ describe 'Attributes handler' do
       id: 5
     }
 
-    # Confirm data is empty before handling attributes.
-    Bluecap.redis.getbit('attributes:gender:female', data[:id])
-      .should eq(0)
-    Bluecap.redis.getbit('attributes:country:australia', data[:id])
-      .should eq(0)
-
-    @attributes.handle(data)
+    subject.handle
 
     # Check that bits have changed.
-    Bluecap.redis.getbit('attributes:gender:female', data[:id])
-      .should eq(1)
-    Bluecap.redis.getbit('attributes:country:australia', data[:id])
-      .should eq(1)
-
-    # For good measure, confirm that other bits have been left untouched.
-    Bluecap.redis.getbit('attributes:gender:female', data[:id] - 1)
-      .should eq(0)
+    Bluecap.redis.getbit('attributes:gender:female', subject.id).should == 1
+    Bluecap.redis.getbit('attributes:country:australia', subject.id).should == 1
   end
 
 end

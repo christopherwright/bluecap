@@ -3,55 +3,56 @@ require 'date'
 module Bluecap
   class Event
 
-    # Converts a UNIX timestamp to a %Y%m%d String.
+    attr_reader :id, :name, :timestamp
+
+    # Initialize an Event handler.
     #
-    # timestamp - The Integer timestamp to convert.
+    # data - A Hash containing event data:
+    #        :id        - The Integer identifer of the user that generated
+    #                     the event.
+    #        :name      - The String type of event.
+    #        :timestamp - The Integer UNIX timestamp when the event was created,
+    #                     defaults to current time (optional).
     #
     # Examples
     #
-    #   date(1341845456)
-    #   # => "20120710"
+    #    Bluecap::Event.new(
+    #      id: 3,
+    #      name: 'Created Account',
+    #      timestamp: 1341845456
+    #    )
+    def initialize(data)
+      @id = data.fetch(:id)
+      @name = data.fetch(:name)
+      @timestamp = data.fetch(:timestamp, Time.now.to_i)
+    end
+
+    # Converts the object's timestamp to a %Y%m%d String.
     #
     # Returns the String date.
-    def self.date(timestamp)
-      Time.at(timestamp).strftime('%Y%m%d')
+    def date
+      Time.at(@timestamp).strftime('%Y%m%d')
     end
 
     # Returns a key used to store the events for a day.
     #
-    # name - The String event to track.
-    # date - The String date in %Y%m%d format.
-    #
     # Examples
     #
-    #    key('Sign Up', '20120710')
+    #    event = Bluecap::Event.new :id => 1, :name => 'Sign Up', :timestamp => 1341845456
+    #    event.key
     #    # => "events:sign.up:20120710"
     #
     # Returns the String key.
-    def self.key(name, date)
-      "events:#{Bluecap::Keys.clean(name)}:#{date}"
+    def key
+      "events:#{Bluecap::Keys.clean(@name)}:#{date}"
     end
 
     # Store the user's event in a bitset of all the events matching that name
     # for the date.
     #
-    # data - A Hash containing event data.
-    #
-    # Examples
-    #
-    #    handle({
-    #      id: 3,
-    #      name: 'Created Account',
-    #      timestamp: 1341845456
-    #    })
-    #
     # Returns nil.
-    def handle(data)
-      data[:timestamp] ||= Time.now.to_i
-      Bluecap.redis.setbit(
-        self.class.key(data[:name], self.class.date(data[:timestamp])),
-        data[:id],
-        1)
+    def handle
+      Bluecap.redis.setbit(key, @id, 1)
 
       nil
     end

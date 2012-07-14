@@ -3,11 +3,13 @@ require 'redis'
 require 'multi_json'
 
 require 'bluecap/keys'
+require 'bluecap/message'
 require 'bluecap/server'
 require 'bluecap/handlers/attributes'
 require 'bluecap/handlers/event'
 require 'bluecap/handlers/identify'
 require 'bluecap/handlers/report'
+require 'bluecap/null_object'
 
 module Bluecap
 
