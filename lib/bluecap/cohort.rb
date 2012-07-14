@@ -41,8 +41,9 @@ module Bluecap
     end
 
     def total
-      total = Bluecap.redis.bitcount(key) || 0
-      total
+      return @total if @total
+
+      @total = Bluecap.redis.bitcount(key) || 0
     end
 
   end
