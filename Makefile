@@ -1,2 +1,2 @@
 test:
-	bundle exec rspec --color
+	rspec
