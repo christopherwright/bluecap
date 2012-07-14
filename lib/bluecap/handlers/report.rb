@@ -4,6 +4,9 @@ require 'securerandom'
 module Bluecap
   class Report
 
+    attr_reader :events_from, :events_to, :dates_from, :dates_to, :attributes,
+      :buckets, :across, :report
+
     # Initialize a Report handler.
     #
     # data - A Hash containing options to scope the report by.
