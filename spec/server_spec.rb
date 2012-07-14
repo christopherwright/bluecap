@@ -17,8 +17,4 @@ describe 'Server' do
     @server.receive_data('{"identify": "andy"}')
   end
 
-  it 'should not throw an exception when no handler is found' do
-    @server.receive_data('{"nope": "nuh-uh"}')
-  end
-
 end
