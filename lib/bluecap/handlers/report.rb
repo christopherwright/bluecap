@@ -55,7 +55,7 @@ module Bluecap
         keys_for_first_event << Bluecap::Event.key(data[:events][:from], date_str)
         keys_for_first_event.concat(keys_for_attributes)
         Bluecap.redis.bitop('and', total_key, keys_for_first_event)
-        Bluecap.redis.expire(total_key, 3600)
+        Bluecap.redis.expire(total_key, 3600) # TODO: Delete if possible.
         stats[:total] = Bluecap.redis.get(total_key) || 0
         report[date.strftime('%Y%m%d')] = stats
       end
