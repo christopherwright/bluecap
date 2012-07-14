@@ -10,14 +10,11 @@ describe Bluecap::Report do
     Bluecap::Report.new(
       initial_event: 'Created Account',
       engagement_event: 'Logged In',
-      report_start_date: '20120401',
-      report_end_date: '20120414', 
       attributes: {
         country: 'Australia',
         gender: 'Female'
       },
-      buckets: 'weekly',
-      frequency: 'daily'
+      year_month: '201207'
     )
 
   end
