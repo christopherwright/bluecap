@@ -1,6 +1,6 @@
 require 'helper'
 
-describe 'Report handler' do
+describe Bluecap::Report do
 
   before do
     Bluecap.redis.flushall
