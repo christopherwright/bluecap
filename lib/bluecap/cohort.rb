@@ -5,7 +5,7 @@ module Bluecap
 
     def initialize(options)
       @initial_event = options.fetch(:initial_event)
-      @attributes = options.fetch(:attributes)
+      @attributes = options.fetch(:attributes, Hash.new)
       @date = options.fetch(:date)
       @report_id = options.fetch(:report_id)
     end
