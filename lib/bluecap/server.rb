@@ -61,7 +61,8 @@ module Bluecap
       # Returns nothing.
       def run
         EventMachine::run do
-          EventMachine::start_server('0.0.0.0', 6088, Bluecap::Server)
+          EventMachine::start_server(Bluecap.host, Bluecap.port, Bluecap::Server)
+          Bluecap.log "Server started on #{Bluecap.host}:#{Bluecap.port}"
         end
       end
 
