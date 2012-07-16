@@ -45,9 +45,13 @@ module Bluecap
     #
     # Returns nothing.
     def receive_data(data)
-      message = Bluecap::Message.new(data)
-      response = process(message)
-      send_data(response) if response
+      begin
+        message = Bluecap::Message.new(data)
+        response = process(message)
+        send_data(response) if response
+      rescue Exception => e
+        Bluecap.log e
+      end
     end
 
     class Daemon
