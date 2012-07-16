@@ -5,13 +5,13 @@ module Bluecap
 
     # Initialize a Cohort.
     #
-    # data - A Hash containing options to define the cohort:
-    #        :initial_event     - The String event that members of the cohort
-    #                             shared.
-    #        :attributes        - The Hash attributes of cohort members.
-    #        :date              - The Date the initial event occurred on.
-    #        :report_id         - The Integer identifier of the report this
-    #                             cohort is being used with.
+    # options - A Hash containing options to define the cohort:
+    #           :initial_event - The String event that members of the cohort
+    #                            shared.
+    #           :attributes    - The Hash attributes of cohort members.
+    #           :date          - The Date the initial event occurred on.
+    #           :report_id     - The Integer identifier of the report this
+    #                            cohort is being used with.
     #
     # Examples
     #
