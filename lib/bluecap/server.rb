@@ -4,7 +4,12 @@ module Bluecap
     # Returns a Hash of handlers, creating a new empty hash if none have
     # previously been set.
     def self.handlers
-      @handlers ||= Hash.new
+      @handlers ||= {
+        attributes: Bluecap::Attributes,
+        event: Bluecap::Event,
+        identify: Bluecap::Identify,
+        report: Bluecap::Report
+      }
     end
 
     # Assign handlers to respond to new data.
@@ -24,7 +29,7 @@ module Bluecap
     end
 
     def process(message)
-      klass = Bluecap::Server.handlers.fetch(message.recipient, Bluecap::NullObject)
+      klass = Bluecap::Server.handlers.fetch(message.recipient, Bluecap::NullHandler)
       handler = klass.new(message.contents)
       handler.handle
       handler.response
