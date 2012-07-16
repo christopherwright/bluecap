@@ -32,6 +32,7 @@ module Bluecap
         else
           engagement_for_day = 0.to_f
         end
+        engagement_for_day *= 100.0
         engagement_for_day.round(2)
 
         results[date.strftime('%Y%m%d')] = engagement_for_day
