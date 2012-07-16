@@ -10,8 +10,8 @@ require 'bluecap/server'
 require 'bluecap/handlers/attributes'
 require 'bluecap/handlers/event'
 require 'bluecap/handlers/identify'
+require 'bluecap/handlers/null_handler'
 require 'bluecap/handlers/report'
-require 'bluecap/null_object'
 
 module Bluecap
 
