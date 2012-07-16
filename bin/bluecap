@@ -34,6 +34,5 @@ parser = OptionParser.new do |opts|
 end
 
 parser.parse!
-server = Bluecap::Server::Daemon.new
 Bluecap.log 'Starting server'
-server.run
+server = Bluecap::Server.run

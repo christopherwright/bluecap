@@ -54,18 +54,14 @@ module Bluecap
       end
     end
 
-    class Daemon
-
-      # Starts a TCP server running on the EventMachine loop.
-      #
-      # Returns nothing.
-      def run
-        EventMachine::run do
-          EventMachine::start_server(Bluecap.host, Bluecap.port, Bluecap::Server)
-          Bluecap.log "Server started on #{Bluecap.host}:#{Bluecap.port}"
-        end
+    # Starts a TCP server running on the EventMachine loop.
+    #
+    # Returns nothing.
+    def self.run
+      EventMachine::run do
+        EventMachine::start_server(Bluecap.host, Bluecap.port, Bluecap::Server)
+        Bluecap.log "Server started on #{Bluecap.host}:#{Bluecap.port}"
       end
-
     end
 
   end
