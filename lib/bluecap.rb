@@ -15,6 +15,8 @@ require 'bluecap/handlers/report'
 
 module Bluecap
 
+  attr_accessor :verbose, :very_verbose
+
   extend self
 
   # Connect to Redis and store the resulting client.
@@ -37,6 +39,46 @@ module Bluecap
     return @redis if @redis
     self.redis = 'localhost:6379'
     self.redis
+  end
+
+  # Set the host to bind to.
+  #
+  # Returns nothing.
+  def host=(host)
+    @host = host
+  end
+
+  # Returns the String host to bind to.
+  def host
+    return @host if @host
+    self.host = '0.0.0.0'
+    self.host
+  end
+
+  # Set the port to bind to.
+  #
+  # Returns nothing.
+  def port=(port)
+    @port = port
+  end
+
+  # Returns the Integer port to bind to.
+  def port
+    return @port if @port
+    self.port = 6088
+    self.port
+  end
+
+  # Log a message to STDOUT.
+  #
+  # Returns nothing.
+  def log(message)
+    if verbose
+      puts message
+    elsif very_verbose
+      time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+      puts "#{time} - #{message}"
+    end
   end
 
 end

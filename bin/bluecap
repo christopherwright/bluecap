@@ -1,11 +1,39 @@
 #!/usr/bin/env ruby
 
 $:.unshift File.dirname(__FILE__) + '/../lib'
+require 'rubygems'
+require 'bundler/setup'
+require 'optparse'
 require 'bluecap'
 
+Bluecap.verbose = true if ENV['VERBOSE']
+Bluecap.very_verbose = true if ENV['VVERBOSE']
+
+parser = OptionParser.new do |opts|
+  opts.banner = 'Usage: bluecap [options]'
+
+  opts.separator ''
+  opts.separator 'Options:'
+
+  opts.on('-r', '--redis [HOST:PORT]', 'Redis connection string') do |redis|
+    Bluecap.redis = redis
+  end
+
+  opts.on('-b', '--bind [HOST]', 'Hostname to bind to') do |host|
+    Bluecap.host = host
+  end
+
+  opts.on('-p', '--port [PORT]', 'Port to listen on') do |port|
+    Bluecap.port = port
+  end
+
+  opts.on('-h', '--help', 'Show this message') do
+    puts opts
+    exit
+  end
+end
+
+parser.parse!
 server = Bluecap::Server::Daemon.new
-# TODO: Logging levels.
-# TODO: Option to daemonize.
-# TODO: Option to write to pidfile.
-puts 'starting server'
+Bluecap.log 'Starting server'
 server.run
