@@ -32,7 +32,6 @@ module Bluecap
       klass = Bluecap::Server.handlers.fetch(message.recipient, Bluecap::NullHandler)
       handler = klass.new(message.contents)
       handler.handle
-      handler.response
     end
 
     # Process a message received from a client, sending a response if
