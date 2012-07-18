@@ -64,7 +64,7 @@ Send the id and a hash of attributes to set:
 
 ### Generating a report
 
-The reports generate retention for users over a date range. The report requires
+The reports measure retention for users over a date range. The report requires
 an initial event name to identify cohorts, an event name that measures
 engagement, a date range and optional attributes to limit the users contained
 in the report:
