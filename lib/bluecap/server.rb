@@ -1,3 +1,5 @@
+require 'socket'
+
 module Bluecap
   module Server
 
@@ -30,6 +32,8 @@ module Bluecap
 
     def process(message)
       klass = Bluecap::Server.handlers.fetch(message.recipient, Bluecap::NullHandler)
+      port, ip_address = Socket.unpack_sockaddr_in(get_peername)
+      Bluecap.log "Message received for #{message.recipient} handler from #{ip_address}:#{port}"
       handler = klass.new(message.contents)
       handler.handle
     end

@@ -15,8 +15,6 @@ require 'bluecap/handlers/report'
 
 module Bluecap
 
-  attr_accessor :verbose, :very_verbose
-
   extend self
 
   # Connect to Redis and store the resulting client.
@@ -73,12 +71,8 @@ module Bluecap
   #
   # Returns nothing.
   def log(message)
-    if verbose
-      puts message
-    elsif very_verbose
-      time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-      puts "#{time} - #{message}"
-    end
+    time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+    puts "#{time} - #{message}"
   end
 
 end
