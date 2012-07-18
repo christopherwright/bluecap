@@ -37,7 +37,7 @@ Send Bluecap a string that uniquely identifies the user in your own system:
     {"identify": "Charlotte"}
     # => 1
 
-    {"identify": {"brian@example.com"}
+    {"identify": {"brian@example.com"}}
     # => 2
 
 The server responds with an integer id. When tracking events for the user, the
