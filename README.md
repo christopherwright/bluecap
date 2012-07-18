@@ -78,7 +78,7 @@ in the report:
           "gender": "Female"
         },
         "start_date": "20120701",
-        "end_date": "20120731",
+        "end_date": "20120731"
       }
     }
 
@@ -103,6 +103,13 @@ cohort, e.g.:
         },
       } 
     }
+
+The engagement figure is a percentage of users for a cohort who have performed
+the engagement event since the initial event. In the example above, a cohort
+is made up of all the users who are female, live in Australia, and created an
+account on the same day as each other. The engagement is a calculation of how
+many of the users in that cohort logged into the site for each day from when
+they created an account until the end of the reporting period.
 
 ## Development
 
