@@ -32,10 +32,27 @@ module Bluecap
       "events:#{clean(name)}:#{date}"
     end
 
+    # Returns a key to unique identify one of the cohorts in a report.
+    #
+    # Examples
+    #
+    #   Bluecap::Keys.cohort '1', '20120710'
+    #   # => "reports:cohort:1:20120710"
+    #
+    # Returns the String key.
     def self.cohort(report_id, cohort_id)
       "reports:cohort:#{report_id}:#{cohort_id}"
     end
 
+    # Returns a key to unique identify the engagement on a particular day for a
+    # cohort in a report.
+    #
+    # Examples
+    #
+    #   Bluecap::Keys.engagement '1', '20120710', '20120711'
+    #   # => "reports:cohort:1:20120710:20120711"
+    #
+    # Returns the String key.
     def self.engagement(report_id, cohort_id, date)
       "reports:e:#{report_id}:#{cohort_id}:#{date}"
     end
