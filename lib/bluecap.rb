@@ -19,7 +19,7 @@ module Bluecap
 
   # Connect to Redis and store the resulting client.
   #
-  # server - A String of conncetion details in host:port format.
+  # server - A String of connection details in host:port format.
   #
   # Examples
   #
