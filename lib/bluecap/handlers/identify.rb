@@ -6,13 +6,14 @@ module Bluecap
     # Initialize an Identify handler.
     #
     # name - A String to uniquely identify the user from the source system.
-    #
     def initialize(name)
       @name = name
     end
 
     # Returns an id to track a user in Bluecap, creating an id if one does not
     # already exist.
+    #
+    # Examples
     #
     #   Bluecap::Identify.new('Andy').handle
     #   # => 1
