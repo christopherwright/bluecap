@@ -43,7 +43,6 @@ module Bluecap
     end
 
     # A Redis key containing a bitmask of all the properties for this cohort.
-    # The method is memoized since the bitmask is cached in Redis for an hour.
     #
     # Returns the String key name in Redis.
     def key
@@ -78,7 +77,7 @@ module Bluecap
     end
 
     # Calculate the total number of users in this cohort by doing a bitcount
-    # on the cohort bitmask. The method is memoized as the calculation is
+    # on the cohort bitmask. The method is memoized since the calculation is
     # expensive.
     #
     # Returns the Integer total.
