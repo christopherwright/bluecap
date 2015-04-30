@@ -22,7 +22,7 @@ module Bluecap
     #     engagement_event: 'Logged In',
     #     attributes: {
     #       country: 'Australia',
-    #       gender: 'Female'
+    #       age: 31 
     #     },
     #     start_date: '20120401',
     #     end_date: '20120430'

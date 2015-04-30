@@ -3,7 +3,7 @@
 Bluecap is a Redis-backed system for measuring user engagement over time. It
 tracks events passed in from external systems, such as when a user creates an
 account, logs in or performs some other key action. Bluecap can also track
-properties of users like their gender or location.
+arbitrary properties of users like A/B variants, IP address or location.
 
 Systems can then query Bluecap for data on how a group of users engages with
 a product over time, e.g.: for users that created an account a month ago, what
@@ -37,7 +37,7 @@ Send Bluecap a string that uniquely identifies the user in your own system:
     {"identify": "Charlotte"}
     # => 1
 
-    {"identify": {"brian@example.com"}}
+    {"identify": "brian@example.com"}
     # => 2
 
 The server responds with an integer id. When tracking events for the user, the
@@ -57,7 +57,7 @@ Send the id and a hash of attributes to set:
       "attributes": {
         "id": 1,
         "attributes": {
-          "gender": "Female",
+          "ab_variant": "blue",
           "country": "Australia"
         }
     }
@@ -75,7 +75,7 @@ in the report:
         "engagement_event": "Logged In",
         "attributes": {
           "country": "Australia",
-          "gender": "Female"
+          "ab_variant": "blue"
         },
         "start_date": "20120701",
         "end_date": "20120731"

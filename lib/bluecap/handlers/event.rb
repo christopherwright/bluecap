@@ -31,7 +31,7 @@ module Bluecap
     #
     # Returns the String date.
     def date
-      Time.at(@timestamp).strftime('%Y%m%d')
+      Time.at(@timestamp).utc.strftime('%Y%m%d')
     end
 
     # Proxy for an event key.

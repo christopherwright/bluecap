@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     Bluecap is a Redis-backed system for measuring user engagement over time.
     It tracks events passed in from external systems, such as when a user
     creates an account, logs in or performs some other key action. Bluecap can
-    also track properties of users like their gender or location.
+    also track arbitrary properties of users like A/B variants, IP address or
+    location.
 description
 end

@@ -11,11 +11,11 @@ describe Bluecap::Event do
   end
 
   it 'should convert unix timestamps to strings in %Y%m%d format' do
-    subject.date.should == '20120710'
+    subject.date.should == '20120709'
   end
 
   it 'should create event key using cleaned name and date' do
-    subject.key.should == 'events:sign.up:20120710'
+    subject.key.should == 'events:sign.up:20120709'
   end
 
   it 'should track event for user by setting corresponding bit to 1' do

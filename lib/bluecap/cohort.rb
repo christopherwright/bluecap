@@ -16,7 +16,7 @@ module Bluecap
     # Examples
     #
     #   Bluecap::Cohort.new :initial_event => 'Created Account',
-    #     :attributes => {:country => 'Australia', :gender => 'Female'},
+    #     :attributes => {:country => 'Australia', :age => 31},
     #     :date => Date.parse('20120701'),
     #     :report_id => 1
     def initialize(options)

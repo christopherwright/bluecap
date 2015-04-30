@@ -17,7 +17,7 @@ module Bluecap
     #
     # Returns the new String.
     def self.clean(str)
-      str.strip.downcase.gsub(/[^a-z0-9]/, '.')
+      str.to_s.strip.downcase.gsub(/[^a-z0-9]/, '.')
     end
 
     # Returns a key used to store the events for a day.

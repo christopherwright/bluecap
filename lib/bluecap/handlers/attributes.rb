@@ -14,7 +14,7 @@ module Bluecap
     #   Bluecap::Attributes.new(
     #     id: 3,
     #     attributes: {
-    #       gender: 'Female',
+    #       age: 31,
     #       country: 'Australia'
     #     }
     #   )
@@ -30,11 +30,11 @@ module Bluecap
     #   attributes = Bluecap::Attributes.new(
     #     id:3,
     #     attributes: {
-    #       gender: 'Female',
+    #       age: 31,
     #       country: 'Australia'
     #     }
     #   attributes.keys
-    #   # => ["attributes:gender:female", "attributes:country:australia"]
+    #   # => ["attributes:age:31", "attributes:country:australia"]
     #
     # Returns the Array of keys.
     def keys
@@ -45,15 +45,15 @@ module Bluecap
     #
     # Examples
     #
-    #   key('gender', 'female')
-    #   # => "attributes:gender:female"
+    #   key('age', 31)
+    #   # => "attributes:age:31"
     def key(attribute, value)
       "attributes:#{Bluecap::Keys.clean(attribute)}:#{Bluecap::Keys.clean(value)}"
     end
 
     # Store attributes for a user. Each attribute/value has its own bitset
     # so this is best used with data that has a limited number of values
-    # (e.g.: gender, country).
+    # (e.g.: age, country).
     #
     # Returns nil.
     def handle

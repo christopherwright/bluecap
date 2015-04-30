@@ -8,7 +8,7 @@ describe Bluecap::Cohort do
 
     @date = Date.parse('20120701')
     @initial_event = 'Sign Up'
-    @attributes = {:country => 'Australia', :gender => 'Female'}
+    @attributes = {:country => 'Australia', :age => 31}
     @users = {
       :evelyn => Bluecap::Identify.new('Evelyn').handle,
       :charlotte => Bluecap::Identify.new('Charlotte').handle

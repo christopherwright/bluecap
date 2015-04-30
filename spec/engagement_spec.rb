@@ -7,7 +7,7 @@ describe Bluecap::Engagement do
     @date = Date.parse('20120701')
     @initial_event = 'Sign Up'
     @engagement_event = 'Logged In'
-    @attributes = {:country => 'Australia', :gender => 'Female'}
+    @attributes = {:country => 'Australia', :age => 31}
     @users = {
       :evelyn => Bluecap::Identify.new('Evelyn').handle,
       :charlotte => Bluecap::Identify.new('Charlotte').handle

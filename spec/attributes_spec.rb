@@ -8,11 +8,11 @@ describe Bluecap::Attributes do
 
   subject do
     Bluecap::Attributes.new :id => 3,
-      :attributes => {:country => 'Australia', :gender => 'Female'}
+      :attributes => {:country => 'Australia', :age => 31}
   end
 
   it 'should create attributes key' do
-    subject.key('gender', 'female').should == 'attributes:gender:female'
+    subject.key('age', 31).should == 'attributes:age:31'
   end
 
   it 'should create attributes key using cleaned name and date' do
@@ -21,13 +21,13 @@ describe Bluecap::Attributes do
 
   it 'should create keys for multiple attributes' do
     subject.keys.should =~ ['attributes:country:australia',
-                            'attributes:gender:female']
+                            'attributes:age:31']
   end
 
   it 'should track attributes for user by setting corresponding bits to 1' do
     data = {
       attributes: {
-        gender: 'female',
+        age: 31,
         country: 'australia',
       },
       id: 5
@@ -36,7 +36,7 @@ describe Bluecap::Attributes do
     subject.handle
 
     # Check that bits have changed.
-    Bluecap.redis.getbit('attributes:gender:female', subject.id).should == 1
+    Bluecap.redis.getbit('attributes:age:31', subject.id).should == 1
     Bluecap.redis.getbit('attributes:country:australia', subject.id).should == 1
   end
 
